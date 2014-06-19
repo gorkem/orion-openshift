@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.equinox.http.registry.httpcontexts">
+      <httpcontext
+            id="org.jboss.orion.openshift.client.ui.httpcontext">
+         <resource-mapping
+               bundle="org.jboss.orion.openshift.client.ui"
+               path="/web">
+         </resource-mapping>
+      </httpcontext>
+   </extension>
+   <extension
+         point="org.eclipse.equinox.http.registry.resources">
+      <resource
+            alias="/openshift"
+            httpcontextId="org.jboss.orion.openshift.client.ui.httpcontext">
+      </resource>
+   </extension>
+
+</plugin>

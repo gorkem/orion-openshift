@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+    <head>
+		<meta name="copyright" content="Copyright (c) 2014 Red Hat Inc." >
+		<meta http-equiv="Content-Language" content="en-us">
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+		<title>Openshift</title>
+		<link rel="stylesheet" type="text/css" href="openshift-apps.css" />
+		<link rel="icon" href="./images/openshift_logo_32.png" type="image/png">
+		<script src="../requirejs/require.js"></script>
+		<script>
+		/*globals require*/
+		require({
+		  baseUrl: '..',
+		
+		  // set the paths to our library packages
+		  packages: [],
+		
+		  paths: {
+		    text: 'requirejs/text',
+		    i18n: 'requirejs/i18n',
+			domReady: 'requirejs/domReady'
+		  }
+		});
+		
+		require(["openshift/openshift-apps"]);
+		
+		</script>
+</head>
+	<body id="openshift-apps" class="orionPage">
+		<div id="sideMenu" class="sideMenu"></div>
+		<div id="pageContent" class="content-fixedHeight">
+			<div id="sideMenuToggle" class="sideMenuToggle"></div>
+			<div class="fixedToolbarHolder mainpane mainPanelLayout">
+				<div class="mainToolbar toolComposite" id="pageToolbar"></div>
+				<div id="mainNode" class="toolbarTarget pageLayoutTarget">
+					<div id="table" class="displayTable" style="padding-bottom: 20px;">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="footer-fixed-bottom footer" id="footer"></div>
+	</body>
+</html>

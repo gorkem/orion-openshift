@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Openshift Client UI
+Bundle-SymbolicName: org.jboss.orion.openshift.client.ui;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: org.jboss.orion.openshift.client.ui.OpenshiftClientUI
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.equinox.http.registry,
+ org.slf4j.log4j;bundle-version="1.7.2"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy
