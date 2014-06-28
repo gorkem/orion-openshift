@@ -4,6 +4,6 @@
    <property name="orion.auth.name" type="String" value="openshift"/>
    <reference bind="setHttpService" cardinality="1..1" interface="org.osgi.service.http.HttpService" name="HttpService" policy="static" unbind="unsetHttpService"/>
    <service>
-      <provide interface="org.eclipse.orion.server.core.authentication.IAuthenticationService"/>
+      <provide interface="org.eclipse.orion.server.authentication.IAuthenticationService"/>
    </service>
 </scr:component>

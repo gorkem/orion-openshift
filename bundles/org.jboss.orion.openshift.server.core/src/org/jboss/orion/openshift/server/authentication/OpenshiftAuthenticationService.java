@@ -73,13 +73,13 @@ public class OpenshiftAuthenticationService implements IAuthenticationService {
 
 		if (version == null && !"XMLHttpRequest".equals(xRequestedWith)) { //$NON-NLS-1$
 			OpenshiftCore.log("Sending redirect to auth form");
-			resp.sendRedirect(req.getContextPath() + "/openshift/auth/LoginWindow.html?redirect=" + req.getRequestURL());
+			resp.sendRedirect(req.getContextPath() + "/mixloginstatic/LoginWindow.html?redirect=" + req.getRequestURL());
 		} 
 		else {
 			resp.setContentType("application/json; charset=UTF-8");
 			JSONObject result = new JSONObject();
 			try {
-				result.put("SignInLocation", req.getContextPath() + "/openshift/auth/LoginWindow.html");
+				result.put("SignInLocation", req.getContextPath() +  "/mixloginstatic/LoginWindow.html");
 				result.put("label", "Openshift Workspace Server");
 				result.put("SignInKey", "openshift");
 			} catch (JSONException e) {
@@ -91,7 +91,7 @@ public class OpenshiftAuthenticationService implements IAuthenticationService {
 	
 	public void setHttpService(HttpService httpService) {
 		try {
-//			httpService.registerServlet("/mixlogin/manageopenids", new ManageOpenidsServlet(this), null, null);
+			//httpService.registerServlet("/mixlogin/manageopenids",  new OpenshiftLoginServlet(this), null, null); // new ManageOpenidsServlet(this), null, null);
 			httpService.registerServlet("/login", new OpenshiftLoginServlet(this), null, null); //$NON-NLS-1$
 			httpService.registerServlet("/logout", new OpenshiftLogoutServlet(), null, null); //$NON-NLS-1$
 		} catch (ServletException e) {
@@ -103,11 +103,12 @@ public class OpenshiftAuthenticationService implements IAuthenticationService {
 
 	public void unsetHttpService(HttpService httpService) {
 		if (httpService != null) {
-//			httpService.unregister("/mixlogin/manageopenids"); //$NON-NLS-1$
+			//httpService.unregister("/mixlogin/manageopenids"); //$NON-NLS-1$
 			httpService.unregister("/login"); //$NON-NLS-1$
 			httpService.unregister("/logout"); //$NON-NLS-1$
 			httpService = null;
 		}
 	}
+	
 
 }
