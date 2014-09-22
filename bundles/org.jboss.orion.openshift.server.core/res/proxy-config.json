@@ -1,0 +1,7 @@
+{ "rulebase" : [
+    { "rule": "/broker/rest/domains", "to": "https://openshift.redhat.com/broker/rest/domains"},
+    { "rule": "/broker/rest/domains/{domain}/applications?include=cartridges", "to": "https://openshift.redhat.com/broker/rest/domains/{domain}/applications?include=cartridges"},
+    { "rule": "/broker/rest/user", "to": "https://openshift.redhat.com/broker/rest/user"}
+  ],
+  "cookiePath": "/openshift-broker-proxy"
+}

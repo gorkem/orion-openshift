@@ -1,6 +1,5 @@
 
-
-/*globals define window*/
+/*eslint-env browser, amd*/
 
 define(['require', 'orion/Deferred',  'orion/webui/littlelib', 'orion/commands', 'orion/commandRegistry', 'orion/URITemplate', 
         'orion/git/gitConfigPreference', 'orion/git/util', 'orion/git/widgets/GitCredentialsDialog','orion/git/gitPreferenceStorage' ],
@@ -9,8 +8,6 @@ define(['require', 'orion/Deferred',  'orion/webui/littlelib', 'orion/commands',
   * @namespace The global container for eclipse APIs.
   */
 var exports = {};
-
-
 
 exports.handleSSHAuthFailure = function (data, serviceRegistry, failedOp){
     var def = new Deferred();
@@ -38,11 +35,10 @@ exports.handleSSHAuthFailure = function (data, serviceRegistry, failedOp){
 	  
 	var gitPreferenceStorage = new GitPreferenceStorage(serviceRegistry);
 	gitPreferenceStorage.get(data.Url).then(function(credentials){
-	   console.log(credentials);
 	   def.resolve(credentials); 
 	}, getCredentials);
 	return def;
-}
+};
 
 exports.handleKnownHostError = function(data, serviceRegistry){
     var def = new Deferred();
@@ -75,7 +71,7 @@ exports.gatherAuthParams = function(application, serviceRegistry){
                     function(error){//may fail but we ignore fails here.
                         console.log('Failure while gathering authentication parameters');
                     });
-}
+};
 
     
 exports.createApplicationCommands = function(serviceRegistry, commandService, fileClient){
@@ -85,7 +81,6 @@ exports.createApplicationCommands = function(serviceRegistry, commandService, fi
         tooltip: 'Clone application code to edit',
         id: 'openshift.editApplication',
         callback: function(data, credentials){
-            console.log(credentials);
             var app = data.items;
             if(!app.git_url)
                 return;
@@ -109,7 +104,6 @@ exports.createApplicationCommands = function(serviceRegistry, commandService, fi
 		            }
 		      }
 		      Deferred.all(clonepromises).then(function(repos){
-		          console.log(repos);
 		          for(var j = 0; j < repos.length; j++){
 		              if (repos[j].Children[0].GitUrl === app.git_url){
     					    window.location = require.toUrl(editTemplate.expand({resource: repos[j].Children[0].ContentLocation}));
@@ -130,8 +124,6 @@ exports.createApplicationCommands = function(serviceRegistry, commandService, fi
 		         var userInfo = params[2];
 		         
                  serviceRegistry.getService("orion.page.message").setProgressMessage("Your project is being set up. This may take a minute...");
-		         console.log("calling clone with credentials");
-		         console.log(credentials);
 		         var deferred = progress.progress(gitService.cloneGitRepository(projectName, app.git_url, null/*path*/,workspace.Location,
 		                credentials.gitSshUsername, credentials.gitSshPassword,
 		                knownHosts, credentials.gitPrivateKey, credentials.gitPassphrase, userInfo, true ), 
@@ -143,8 +135,6 @@ exports.createApplicationCommands = function(serviceRegistry, commandService, fi
 						});
 		         },
 		         function(jsonData){
-   		              console.log("clone fail");
-        		      console.log(jsonData); 
    		              	switch (jsonData.HttpCode) {
    		              	  case 400:
    		              	    if(jsonData.JsonData && jsonData.JsonData.HostKey){

@@ -19,7 +19,6 @@ import org.osgi.service.http.NamespaceException;
 
 public class OpenshiftAuthenticationService implements IAuthenticationService {
 	
-	private Properties defaultAuthenticationProperties;
 	private boolean registered = false;
 	
 	@Override
@@ -28,38 +27,33 @@ public class OpenshiftAuthenticationService implements IAuthenticationService {
 	}
 
 	@Override
+	public boolean isRegistered() {
+		return registered;
+	}
+
+	@Override
 	public void setRegistered(boolean registered) {
 		this.registered  =registered;
 	}
 
 	@Override
-	public boolean getRegistered() {
-		return registered;
-	}
-
-	@Override
-	public void configure(Properties properties) {
-		this.defaultAuthenticationProperties = properties;
-	}
-
-	@Override
 	public String getAuthenticatedUser(HttpServletRequest req,
-			HttpServletResponse resp, Properties properties) throws IOException {
+			HttpServletResponse resp) throws IOException {
 		HttpSession s = req.getSession(true);
 		return (String) s.getAttribute("user");//$NON-NLS-1$
 	}
-
+	
 	@Override
 	public String authenticateUser(HttpServletRequest req,
-			HttpServletResponse resp, Properties properties) throws IOException {
-		String user = getAuthenticatedUser(req, resp, properties);
+			HttpServletResponse resp) throws IOException {
+		String user = getAuthenticatedUser(req, resp);
 		if(user == null ){
-			notAuthenticated(req, resp, properties);
+			notAuthenticated(req, resp);
 		}
 		return user;
 	}
 	
-	private void notAuthenticated(HttpServletRequest req, HttpServletResponse resp, Properties properties) throws IOException {
+	private void notAuthenticated(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		resp.setHeader("WWW-Authenticate", HttpServletRequest.FORM_AUTH); //$NON-NLS-1$
 		resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 
@@ -109,6 +103,7 @@ public class OpenshiftAuthenticationService implements IAuthenticationService {
 			httpService = null;
 		}
 	}
+
 	
 
 }

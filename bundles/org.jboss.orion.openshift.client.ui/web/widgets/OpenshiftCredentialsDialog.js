@@ -1,5 +1,4 @@
-/*global define*/
-/*jslint browser:true*/
+/*eslint-env browser,amd */
 define(['orion/webui/dialog'], function(dialog) {
 
 function OpenshiftCredentialsDialog(options){
@@ -31,13 +30,11 @@ OpenshiftCredentialsDialog.prototype.TEMPLATE =
 	};
 	
 	OpenshiftCredentialsDialog.prototype.validate = function() {
-	    console.log('validating');
-	    var user = this.$userId.value
-	    var password = this.$password.value
-	    var that = this
+	    var user = this.$userId.value;
+	    var password = this.$password.value;
+	    var that = this;
 	    if( this.options.service){
 		  this.options.service.getUser(user, password).then(function(data){
-		      console.log(data);
 		      if(data){
 		          that.options.service.updateServiceCredentials(user,password);
 		          that.hide(false);

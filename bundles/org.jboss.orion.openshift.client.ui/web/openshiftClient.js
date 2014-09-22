@@ -1,8 +1,9 @@
-/*global define*/
+/*eslint-env browser, amd */
 define(['require', 'orion/xhr', 'orion/Deferred', 'orion/operation'], 
 function(require, xhr, Deferred, operation) {
 var eclipse = eclipse || {};
 var openshiftUser = openshiftUser || {};
+var brokerHost = ""; //"https://openshift.redhat.com"; 
 
 eclipse.OpenshiftService = (function(){
    var contentType = "application/json; charset=UTF-8";
@@ -44,7 +45,7 @@ eclipse.OpenshiftService = (function(){
            var deferred = new Deferred();
            this._authData().then(function(authData){
                console.log(authData);
-                xhr("GET", "https://openshift.redhat.com/broker/rest/domains",
+                xhr("GET", brokerHost +"/broker/rest/domains",
                  { headers:{ "Content-Type" : contentType,
                            "Authorization" : authData
                           },
@@ -67,7 +68,7 @@ eclipse.OpenshiftService = (function(){
         listApplications: function(domain){
             var deferred = new Deferred();
             this._authData().then( function(authData ){
-                var url = "https://openshift.redhat.com/broker/rest/domains/"+domain+"/applications";
+                var url = brokerHost+ "/broker/rest/domains/"+domain+"/applications?include=cartridges";
                 xhr("GET", url,
                 { headers:{ "Content-Type" : contentType,
                            "Authorization" : authData
@@ -77,7 +78,7 @@ eclipse.OpenshiftService = (function(){
                         deferred.resolve(result.response.data);
                 },function(error){
                     deferred.reject(error);
-                })
+                });
             },
             function(error){
                 deferred.reject(error);
@@ -87,7 +88,7 @@ eclipse.OpenshiftService = (function(){
          },
          getUser: function(user, password){
             var deferred = new Deferred();
-            var url = 'https://openshift.redhat.com/broker/rest/user';
+            var url = brokerHost +'/broker/rest/user';
             var authString = "Basic " + btoa(user+":"+password);
             xhr("GET", url,
                 { headers:{ "Content-Type" : contentType,
@@ -101,7 +102,7 @@ eclipse.OpenshiftService = (function(){
                 });
             return deferred;
          }
-   }
+   };
    return OpenshiftService;
 }());
 

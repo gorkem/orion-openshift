@@ -1,4 +1,4 @@
-/*globals define window*/
+/*eslint-env browser, amd*/
 
 var eclipse;
 

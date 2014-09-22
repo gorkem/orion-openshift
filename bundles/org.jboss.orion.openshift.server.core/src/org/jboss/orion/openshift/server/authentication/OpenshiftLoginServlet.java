@@ -137,7 +137,7 @@ public class OpenshiftLoginServlet extends OrionServlet {
 		
 		String user = req.getRemoteUser();
 		if (user == null) {
-			user = this.authenticator.getAuthenticatedUser(req, resp, null);
+			user = this.authenticator.getAuthenticatedUser(req, resp);
 		}
 
 		if (user != null) {

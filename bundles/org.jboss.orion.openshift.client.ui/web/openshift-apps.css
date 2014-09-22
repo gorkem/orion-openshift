@@ -14,4 +14,44 @@
    display: inline-block;
    border: none;
 }
+.cartridge-block{
+    margin:1em;
+    padding:.1999em;
+    
+}
+.cartridge-box{
+    width:22em;
+    font: 7pt Arial,Helvetica,Myriad,Tahoma,clean,sans-serif, Lucida Sans Unicode,Lucida Grande,Verdana;
+    background-color: rgb(238, 238, 238);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+    float:left;
+    margin-right: 1em;
+    margin-bottom: 1em;
+}
 
+.top {
+    vertical-align: top;
+}
+
+.flow-block {
+    vertical-align: middle;
+}
+.cartridge-title-block {
+    vertical-align: middle;
+    text-align: center;
+}
+
+ul.inline{
+    list-style: none outside none;
+    display: inline-block;
+    padding-left: 1em;
+    padding-top: 0em;
+    margin-top: 0em;
+    padding-right: 1em
+}
+
+.inline-header{
+    margin-bottom: 0.5em;
+}
+
+    

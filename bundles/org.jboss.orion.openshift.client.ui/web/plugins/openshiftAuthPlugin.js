@@ -8,7 +8,7 @@
  * 
  * Contributors: Red Hat Inc. - initial API and implementation
  ******************************************************************************/
-/*global define eclipse document*/
+/*eslint-env browser, amd*/
 
 define(["orion/xhr", "orion/plugin", "domReady!"], function(xhr, PluginProvider) {
 	var headers = {
@@ -27,7 +27,6 @@ define(["orion/xhr", "orion/plugin", "domReady!"], function(xhr, PluginProvider)
 
 	var serviceImpl = {
 		getUser: function() {
-      console.log('caled getUser()');
       orion.core.auth
 			if (loginData) {
 				return loginData;
@@ -65,7 +64,6 @@ define(["orion/xhr", "orion/plugin", "domReady!"], function(xhr, PluginProvider)
 			});
 		},
 		getAuthForm: function(notify) {
-      console.log('called getAuthForm');
 			return qualifyURL(notify ? ('../openshift/auth/LoginWindow.html?redirect=' + encodeURIComponent(notify) ) : '../openshift/auth/LoginWindow.html');
 		},
 
