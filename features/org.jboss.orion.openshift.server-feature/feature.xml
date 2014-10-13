@@ -16,6 +16,10 @@
       [Enter License Description here.]
    </license>
 
+   <requires>
+      <import feature="org.eclipse.orion" version="7.0.0" match="greaterOrEqual"/>
+   </requires>
+
    <plugin
          id="org.jboss.orion.openshift.server.core"
          download-size="0"

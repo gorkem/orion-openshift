@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/org.jboss.orion.openshift.server.feature_1.0.0.qualifier.jar" id="org.jboss.orion.openshift.server.feature" version="1.0.0.qualifier">
+      <category name="org.jboss.orion.server"/>
+   </feature>
+   <category-def name="org.jboss.orion.server" label="JBoss Orion Server"/>
+</site>
