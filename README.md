@@ -1,4 +1,7 @@
 The goal of this project is to extend [Eclipse Orion](http://www.eclipse.org/orion) for [Openshift](http://www.openshift.com) and beyond.
+## Configuration
+To enable authentication with Openshift:
+- Add `orion.auth.name = openshift`  to the server configuration
 
 ## Get the code
 
