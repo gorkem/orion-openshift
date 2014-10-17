@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.RequestDispatcher;
@@ -19,14 +20,19 @@ import org.apache.commons.httpclient.auth.AuthScope;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.params.HttpMethodParams;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.orion.internal.server.core.metastore.SimpleUserPasswordUtil;
 import org.eclipse.orion.server.authentication.Activator;
 import org.eclipse.orion.server.core.LogHelper;
+import org.eclipse.orion.server.core.OrionConfiguration;
 import org.eclipse.orion.server.core.events.IEventService;
+import org.eclipse.orion.server.core.metastore.IMetaStore;
+import org.eclipse.orion.server.core.metastore.UserInfo;
 import org.eclipse.orion.server.core.resources.Base64;
 import org.eclipse.orion.server.servlets.OrionServlet;
 import org.eclipse.orion.server.user.profile.IOrionUserProfileConstants;
 import org.eclipse.orion.server.user.profile.IOrionUserProfileNode;
 import org.eclipse.orion.server.user.profile.IOrionUserProfileService;
+import org.eclipse.orion.server.useradmin.User;
 import org.eclipse.orion.server.useradmin.UserServiceHelper;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -104,6 +110,28 @@ public class OpenshiftLoginServlet extends OrionServlet {
 			theGet.setParams(params);
 			int status = client.executeMethod(theGet);
 			if (status == 200 || status == 201) {
+
+				try {//Create the user on the metastore because openshift user is 
+					 // never created on this server before
+					IMetaStore metaStore = OrionConfiguration.getMetaStore();
+					List<String> ids = metaStore.readAllUsers();
+					if (!ids.contains(userName)) {
+						UserInfo userInfo = new UserInfo();
+						userInfo.setUserName(userName);
+						userInfo.setFullName("");
+						metaStore.createUser(userInfo);
+
+					}
+				} catch (CoreException e) {
+					handleException(resp, e.getStatus());
+					return;
+				}
+				
+
+				User credentialUser = new User(userName);
+				credentialUser.setPassword(",");//Hack to fool  SimpleUserPasswordUtil.decryptPassword(encryptedPassword); 
+				credentialUser.setUid(userName);
+				UserServiceHelper.getDefault().getUserStore().updateUser(userName, credentialUser);
 				String response = theGet.getResponseBodyAsString();
 				try {
 					JSONObject user = new JSONObject(response);
