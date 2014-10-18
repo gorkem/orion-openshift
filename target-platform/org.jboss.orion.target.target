@@ -207,15 +207,15 @@
 <repository location="http://download.eclipse.org/cbi/updates/license"/>
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="slicer" includeSource="true" type="InstallableUnit">
-<unit id="org.eclipse.orion.server.feature.feature.group" version="7.0.0.v20141010-1221"/>
-<unit id="org.eclipse.orion.feature.group" version="7.0.0.v20141012-0217"/>
-<unit id="org.eclipse.orion.server.search.feature.feature.group" version="7.0.0.v20140918-2051"/>
-<unit id="org.eclipse.orion.server.ui.feature.feature.group" version="7.0.0.v20140925-0400"/>
-<unit id="org.eclipse.orion.releng.test.master.feature.group" version="7.0.0.v20141012-0231"/>
-<unit id="org.eclipse.orion.server.tests.feature.feature.group" version="7.0.0.v20141012-0231"/>
-<unit id="org.eclipse.orion.server.authentication.feature.feature.group" version="7.0.0.v20141008-2127"/>
-<unit id="org.eclipse.orion.client.feature.feature.group" version="7.0.0.v20141012-0217"/>
-<unit id="org.eclipse.orion.base.feature.feature.group" version="7.0.0.v20140909-1633"/>
+<unit id="org.eclipse.orion.server.feature.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.orion.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.orion.server.search.feature.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.orion.server.ui.feature.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.orion.releng.test.master.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.orion.server.tests.feature.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.orion.server.authentication.feature.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.orion.client.feature.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.orion.base.feature.feature.group" version="0.0.0"/>
 <repository location="http://download.eclipse.org/orion/updates/interim/"/>
 </location>
 </locations>
