@@ -3,7 +3,6 @@
 
 <product name="JBoss Orion" uid="org.jboss.orion" id="org.eclipse.orion.product" application="org.eclipse.orion.application" version="1.0.0.qualifier" useFeatures="true" includeLaunchers="true">
 
-
    <configIni use="default">
    </configIni>
 
@@ -22,7 +21,6 @@
 
    <windowImages/>
 
-
    <launcher name="jbossorion">
       <macosx icon="/org.jboss.orion.repository/macosx/JBDevStudio.icns"/>
       <solaris/>
@@ -31,7 +29,6 @@
          <bmp/>
       </win>
    </launcher>
-
 
    <vm>
    </vm>
@@ -177,10 +174,11 @@ Java and all Java-based trademarks are trademarks of Oracle Corporation in the U
       <plugin id="org.eclipse.equinox.ds" autoStart="true" startLevel="2" />
       <plugin id="org.eclipse.equinox.simpleconfigurator" autoStart="true" startLevel="1" />
       <plugin id="org.eclipse.orion.server.git" autoStart="true" startLevel="0" />
-      <plugin id="org.eclipse.orion.server.search" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.orion.server.search" autoStart="false" startLevel="0" />
       <plugin id="org.eclipse.orion.server.servlets" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.orion.server.useradmin.simple" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.osgi" autoStart="true" startLevel="-1" />
+      <plugin id="org.jboss.orion.openshift.server.core" autoStart="true" startLevel="0" />
       <property name="eclipse.buildId" value="@qualifier@" />
       <property name="org.eclipse.update.reconcile" value="false" />
    </configurations>
