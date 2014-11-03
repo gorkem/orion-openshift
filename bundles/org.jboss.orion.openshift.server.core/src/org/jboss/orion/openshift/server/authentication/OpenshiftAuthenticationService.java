@@ -1,7 +1,6 @@
 package org.jboss.orion.openshift.server.authentication;
 
 import java.io.IOException;
-import java.util.Properties;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

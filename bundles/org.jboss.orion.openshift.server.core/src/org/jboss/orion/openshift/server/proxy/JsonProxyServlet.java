@@ -12,7 +12,6 @@ import org.apache.commons.httpclient.protocol.SSLProtocolSocketFactory;
 
 import io.fabric8.gateway.model.HttpProxyRuleBase;
 import io.fabric8.gateway.servlet.ProxyServlet;
-import io.fabric8.gateway.servlet.support.NonBindingSocketFactory;
 import io.fabric8.gateway.support.JsonRuleBaseReader;
 
 public class JsonProxyServlet extends ProxyServlet {
