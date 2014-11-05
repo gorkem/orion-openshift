@@ -27,12 +27,9 @@ import org.eclipse.orion.server.core.events.IEventService;
 import org.eclipse.orion.server.core.metastore.IMetaStore;
 import org.eclipse.orion.server.core.metastore.UserInfo;
 import org.eclipse.orion.server.core.resources.Base64;
+import org.eclipse.orion.server.core.users.UserConstants2;
 import org.eclipse.orion.server.servlets.OrionServlet;
-import org.eclipse.orion.server.user.profile.IOrionUserProfileConstants;
-import org.eclipse.orion.server.user.profile.IOrionUserProfileNode;
-import org.eclipse.orion.server.user.profile.IOrionUserProfileService;
-import org.eclipse.orion.server.useradmin.User;
-import org.eclipse.orion.server.useradmin.UserServiceHelper;
+import org.eclipse.orion.server.useradmin.UserConstants;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.osgi.framework.BundleContext;
@@ -110,9 +107,9 @@ public class OpenshiftLoginServlet extends OrionServlet {
 			int status = client.executeMethod(theGet);
 			if (status == 200 || status == 201) {
 
+				IMetaStore metaStore = OrionConfiguration.getMetaStore();
 				try {//Create the user on the metastore because openshift user is 
 					 // never created on this server before
-					IMetaStore metaStore = OrionConfiguration.getMetaStore();
 					List<String> ids = metaStore.readAllUsers();
 					if (!ids.contains(userName)) {
 						UserInfo userInfo = new UserInfo();
@@ -126,31 +123,16 @@ public class OpenshiftLoginServlet extends OrionServlet {
 					return;
 				}
 				
-
-				User credentialUser = new User(userName);
-				credentialUser.setPassword(",");//Hack to fool  SimpleUserPasswordUtil.decryptPassword(encryptedPassword); 
-				credentialUser.setUid(userName);
-				UserServiceHelper.getDefault().getUserStore().updateUser(userName, credentialUser);
-				String response = theGet.getResponseBodyAsString();
+				
 				try {
-					JSONObject user = new JSONObject(response);
-					publishLoginEvent(userName);
 					
-					IOrionUserProfileNode userProfileNode = getUserProfileService().getUserProfileNode(userName, IOrionUserProfileConstants.GENERAL_PROFILE_PART);
-					try {
-						// try to store the login timestamp in the user profile
-						userProfileNode.put(IOrionUserProfileConstants.LAST_LOGIN_TIMESTAMP, new Long(System.currentTimeMillis()).toString(), false);
-						userProfileNode.flush();
-					} catch (CoreException e) {
-						// just log that the login timestamp was not stored
-						LogHelper.log(e);
-					}
 
 					req.getSession(true).setAttribute("user", userName);
 					req.getSession(true).setAttribute("pass", password);
 					
 					resp.setStatus(HttpServletResponse.SC_OK);
 					resp.setContentType("application/json"); //$NON-NLS-1$
+					publishLoginEvent(userName);
 					writeUserResponse(req, resp);
 					resp.flushBuffer();
 				} catch (JSONException e) {
@@ -180,13 +162,47 @@ public class OpenshiftLoginServlet extends OrionServlet {
 		
 		
 	}
+	
+	private JSONObject getUserJson(String uid) throws JSONException {
+		JSONObject obj = new JSONObject();
+		obj.put(UserConstants.KEY_LOGIN, uid);
+
+		try {
+			UserInfo userInfo = OrionConfiguration.getMetaStore().readUserByProperty(UserConstants2.USER_NAME, uid, false, false);
+			if (userInfo == null) {
+				return null;
+			}
+			obj.put(UserConstants.KEY_UID, uid);
+			obj.put(UserConstants.KEY_LOGIN, userInfo.getUserName());
+			obj.put(UserConstants.KEY_LOCATION, '/' + UserConstants.KEY_USERS + '/' + uid);
+			obj.put(UserConstants2.FULL_NAME, userInfo.getFullName());
+			if (userInfo.getProperties().containsKey(UserConstants2.LAST_LOGIN_TIMESTAMP)) {
+				Long lastLogin = Long.parseLong(userInfo.getProperty(UserConstants2.LAST_LOGIN_TIMESTAMP));
+				obj.put(UserConstants2.LAST_LOGIN_TIMESTAMP, lastLogin);
+			}
+			if (userInfo.getProperties().containsKey(UserConstants2.DISK_USAGE_TIMESTAMP)) {
+				Long lastLogin = Long.parseLong(userInfo.getProperty(UserConstants2.DISK_USAGE_TIMESTAMP));
+				obj.put(UserConstants2.DISK_USAGE_TIMESTAMP, lastLogin);
+			}
+			if (userInfo.getProperties().containsKey(UserConstants2.DISK_USAGE)) {
+				Long lastLogin = Long.parseLong(userInfo.getProperty(UserConstants2.DISK_USAGE));
+				obj.put(UserConstants2.DISK_USAGE, lastLogin);
+			}
+		} catch (IllegalArgumentException e) {
+			LogHelper.log(e);
+		} catch (CoreException e) {
+			LogHelper.log(e);
+		}
+
+		return obj;
+	}
 
 	private void writeUserResponse(HttpServletRequest req,
 			HttpServletResponse resp ) throws IOException, JSONException {
 		PrintWriter writer = resp.getWriter();
 		String uid = (String) req.getSession().getAttribute("user");
 		String password = (String) req.getSession().getAttribute("pass");
-		JSONObject userJson = new JSONObject();
+		JSONObject userJson = getUserJson(uid);
 		userJson.put("login", uid); //$NON-NLS-1$
 		userJson.put("uid", uid);
 		userJson.put("openshiftUser", uid);
@@ -194,10 +210,6 @@ public class OpenshiftLoginServlet extends OrionServlet {
 		writer.print(userJson);
 	}
 	
-	private IOrionUserProfileService getUserProfileService() {
-		return UserServiceHelper.getDefault().getUserProfileService();
-	}
-
 	private void publishLoginEvent( String userId){
 		if (getEventService() != null) {
 			JSONObject message = new JSONObject();
