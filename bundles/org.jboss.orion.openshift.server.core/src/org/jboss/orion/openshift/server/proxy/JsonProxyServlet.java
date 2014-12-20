@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.httpclient.protocol.Protocol;
 import org.apache.commons.httpclient.protocol.SSLProtocolSocketFactory;
+import org.jboss.orion.openshift.server.core.OpenshiftCore;
 
 import io.fabric8.gateway.model.HttpProxyRuleBase;
 import io.fabric8.gateway.servlet.ProxyServlet;
@@ -28,6 +29,7 @@ public class JsonProxyServlet extends ProxyServlet {
 	
     @Override
     protected void loadRuleBase(ServletConfig servletConfig, HttpProxyRuleBase ruleBase) throws ServletException {
+    	OpenshiftCore.log("Loading JBoss Orion proxy servlet forwarding rules");
         ruleBase.setMappingRules(JsonRuleBaseReader.parseJson(servletConfig.getServletContext().getResourceAsStream(PROXY_CONFIG)));
     }
     
@@ -35,16 +37,17 @@ public class JsonProxyServlet extends ProxyServlet {
     public void doGet(HttpServletRequest httpServletRequest,
     		HttpServletResponse httpServletResponse) throws IOException,
     		ServletException {
+    	OpenshiftCore.log("JBoss Orion Forwarding " + httpServletRequest.getRequestURI());
     	
     	try{
     		super.doGet(httpServletRequest, httpServletResponse);
     	}
     	catch (ServletException e) {
-    		e.printStackTrace();
+    		OpenshiftCore.log(e);
     		throw e;
 		}
     	catch ( IOException e) {
-    		e.printStackTrace();
+    		OpenshiftCore.log(e);
     		throw e;
 		}
     }
