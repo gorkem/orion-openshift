@@ -1,7 +1,7 @@
 {
-	"/plugins":{
-		"openshift/plugins/openshiftPlugin.html": true,
-        "plugins/authenticationPlugin.html": true,
+    "/plugins":{
+	    "openshift/plugins/openshiftPlugin.html":true,
+        "plugins/authenticationPlugin.html":true,
         "plugins/fileClientPlugin.html":true,
         "plugins/jslintPlugin.html":true,
         "git/plugins/gitPlugin.html":true,
@@ -11,10 +11,12 @@
         "edit/content/imageViewerPlugin.html":true,
         "edit/content/jsonEditorPlugin.html":true,
         "plugins/webEditingPlugin.html":true,
+        "plugins/googleAnalyticsPlugin.html": true,
         "plugins/helpPlugin.html": true,
         "plugins/languages/arduino/arduinoPlugin.html":true,
         "plugins/languages/c/cPlugin.html":true,
         "plugins/languages/cpp/cppPlugin.html":true,
+	    "plugins/languages/csharp/csharpPlugin.html":true,
         "plugins/languages/docker/dockerPlugin.html":true,
         "plugins/languages/erlang/erlangPlugin.html":true,
         "plugins/languages/go/goPlugin.html":true,
@@ -27,6 +29,7 @@
         "plugins/languages/python/pythonPlugin.html":true,
         "plugins/languages/ruby/rubyPlugin.html":true,
         "plugins/languages/swift/swiftPlugin.html":true,
+	    "plugins/languages/vb/vbPlugin.html":true,
         "plugins/languages/xml/xmlPlugin.html":true,
         "plugins/languages/xquery/xqueryPlugin.html":true,
         "plugins/languages/yaml/yamlPlugin.html":true,
@@ -40,5 +43,5 @@
         "cfui/plugins/cFPlugin.html":true,
         "cfui/plugins/cFDeployPlugin.html":true,
         "cfui/plugins/wizards/genericDeploymentWizardPlugin.html":true
-	}
+    }
 }
