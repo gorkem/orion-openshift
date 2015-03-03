@@ -27,9 +27,8 @@ import org.eclipse.orion.server.core.events.IEventService;
 import org.eclipse.orion.server.core.metastore.IMetaStore;
 import org.eclipse.orion.server.core.metastore.UserInfo;
 import org.eclipse.orion.server.core.resources.Base64;
-import org.eclipse.orion.server.core.users.UserConstants2;
 import org.eclipse.orion.server.servlets.OrionServlet;
-import org.eclipse.orion.server.useradmin.UserConstants;
+import org.eclipse.orion.server.core.users.UserConstants;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.osgi.framework.BundleContext;
@@ -80,7 +79,7 @@ public class OpenshiftLoginServlet extends OrionServlet {
 
 		if (pathInfo.startsWith("/form")) {
 
-			String userName = req.getParameter("login");
+			String userName = req.getParameter("username");
 			String password = req.getParameter("password");
 			if (userName == null || password == null) {
 				displayError("No username or password specified", req, resp);
@@ -148,7 +147,6 @@ public class OpenshiftLoginServlet extends OrionServlet {
 		if (user == null) {
 			user = this.authenticator.getAuthenticatedUser(req, resp);
 		}
-
 		if (user != null) {
 			resp.setStatus(HttpServletResponse.SC_OK);
 			resp.setContentType("application/json"); //$NON-NLS-1$
@@ -159,34 +157,32 @@ public class OpenshiftLoginServlet extends OrionServlet {
 			}
 			return;
 		}
-		
-		
 	}
 	
 	private JSONObject getUserJson(String uid) throws JSONException {
 		JSONObject obj = new JSONObject();
-		obj.put(UserConstants.KEY_LOGIN, uid);
+		obj.put(UserConstants.USER_NAME, uid);
 
 		try {
-			UserInfo userInfo = OrionConfiguration.getMetaStore().readUserByProperty(UserConstants2.USER_NAME, uid, false, false);
+			UserInfo userInfo = OrionConfiguration.getMetaStore().readUserByProperty(UserConstants.USER_NAME, uid, false, false);
 			if (userInfo == null) {
 				return null;
 			}
-			obj.put(UserConstants.KEY_UID, uid);
-			obj.put(UserConstants.KEY_LOGIN, userInfo.getUserName());
-			obj.put(UserConstants.KEY_LOGIN, '/' + UserConstants.KEY_UID+ '/' + uid);
-			obj.put(UserConstants2.FULL_NAME, userInfo.getFullName());
-			if (userInfo.getProperties().containsKey(UserConstants2.LAST_LOGIN_TIMESTAMP)) {
-				Long lastLogin = Long.parseLong(userInfo.getProperty(UserConstants2.LAST_LOGIN_TIMESTAMP));
-				obj.put(UserConstants2.LAST_LOGIN_TIMESTAMP, lastLogin);
+			obj.put(UserConstants.USER_NAME, uid);
+			obj.put(UserConstants.USER_NAME, userInfo.getUserName());
+			obj.put(UserConstants.USER_NAME, '/' + UserConstants.USER_NAME+ '/' + uid);
+			obj.put(UserConstants.FULL_NAME, userInfo.getFullName());
+			if (userInfo.getProperties().containsKey(UserConstants.LAST_LOGIN_TIMESTAMP)) {
+				Long lastLogin = Long.parseLong(userInfo.getProperty(UserConstants.LAST_LOGIN_TIMESTAMP));
+				obj.put(UserConstants.LAST_LOGIN_TIMESTAMP, lastLogin);
 			}
-			if (userInfo.getProperties().containsKey(UserConstants2.DISK_USAGE_TIMESTAMP)) {
-				Long lastLogin = Long.parseLong(userInfo.getProperty(UserConstants2.DISK_USAGE_TIMESTAMP));
-				obj.put(UserConstants2.DISK_USAGE_TIMESTAMP, lastLogin);
+			if (userInfo.getProperties().containsKey(UserConstants.DISK_USAGE_TIMESTAMP)) {
+				Long lastLogin = Long.parseLong(userInfo.getProperty(UserConstants.DISK_USAGE_TIMESTAMP));
+				obj.put(UserConstants.DISK_USAGE_TIMESTAMP, lastLogin);
 			}
-			if (userInfo.getProperties().containsKey(UserConstants2.DISK_USAGE)) {
-				Long lastLogin = Long.parseLong(userInfo.getProperty(UserConstants2.DISK_USAGE));
-				obj.put(UserConstants2.DISK_USAGE, lastLogin);
+			if (userInfo.getProperties().containsKey(UserConstants.DISK_USAGE)) {
+				Long lastLogin = Long.parseLong(userInfo.getProperty(UserConstants.DISK_USAGE));
+				obj.put(UserConstants.DISK_USAGE, lastLogin);
 			}
 		} catch (IllegalArgumentException e) {
 			LogHelper.log(e);
