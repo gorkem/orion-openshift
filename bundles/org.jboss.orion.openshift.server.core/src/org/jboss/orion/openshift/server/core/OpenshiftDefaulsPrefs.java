@@ -24,7 +24,7 @@ public class OpenshiftDefaulsPrefs implements Filter {
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
-		request.getRequestDispatcher("/openshift/defaults-jboss.pref").forward(request, response);
+		request.getRequestDispatcher("/jboss/defaults-jboss.pref").forward(request, response);
 
 	}
 
