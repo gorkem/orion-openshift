@@ -6,12 +6,13 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 		<title>Openshift</title>
 		<link rel="stylesheet" type="text/css" href="openshift-apps.css" />
-		<link rel="icon" href="./images/openshift_logo_32.png" type="image/png">
-		<script src="../requirejs/require.js"></script>
+		<link rel="icon" href="../images/openshift_logo_32.png" type="image/png">
+		<script src="../../requirejs/require.js"></script>
 		<script>
 		/*globals require*/
+		console.log("openshift-apps");
 		require({
-		  baseUrl: '..',
+		  baseUrl: '../../',
 		
 		  // set the paths to our library packages
 		  packages: [],
@@ -23,7 +24,7 @@
 		  }
 		});
 		
-		require(["openshift/openshift-apps"]);
+		require(["jboss/openshift/openshift-apps"]);
 		
 		</script>
 </head>

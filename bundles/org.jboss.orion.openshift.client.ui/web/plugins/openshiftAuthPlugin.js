@@ -64,7 +64,7 @@ define(["orion/xhr", "orion/plugin", "domReady!"], function(xhr, PluginProvider)
 			});
 		},
 		getAuthForm: function(notify) {
-			return qualifyURL(notify ? ('../openshift/auth/LoginWindow.html?redirect=' + encodeURIComponent(notify) ) : '../openshift/auth/LoginWindow.html');
+			return qualifyURL(notify ? ('../jboss/auth/LoginWindow.html?redirect=' + encodeURIComponent(notify) ) : '../openshift/auth/LoginWindow.html');
 		},
 
 		getKey: function() {

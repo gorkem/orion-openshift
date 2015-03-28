@@ -4,12 +4,13 @@ var eclipse;
 
 define(['i18n!git/nls/gitmessages', 'require', 'orion/browserCompatibility', 'orion/bootstrap', 'orion/status', 'orion/progress', 'orion/PageUtil', 'orion/keyBinding', 'orion/commandRegistry', 'orion/commands', 'orion/dialogs', 'orion/selection', 
         'orion/fileClient', 'orion/operationsClient', 'orion/searchClient', 'orion/globalCommands',
-        'orion/git/gitRepositoryExplorer', 'orion/git/gitCommands', 'orion/git/gitClient', 'orion/ssh/sshTools', 'orion/links','openshift/openshiftClient', 'openshift/openshiftExplorer','openshift/openshift-commands'], 
+        'orion/git/gitRepositoryExplorer', 'orion/git/gitCommands', 'orion/git/gitClient', 'orion/ssh/sshTools', 'orion/links','jboss/openshift/openshiftClient', 'jboss/openshift/openshiftExplorer','jboss/openshift/openshift-commands'], 
 		function(messages, require, mBrowserCompatibility, mBootstrap, mStatus, mProgress, PageUtil, KeyBinding, mCommandRegistry, mCommands, mDialogs, mSelection, 
 				mFileClient, mOperationsClient, mSearchClient, mGlobalCommands, 
 				mGitRepositoryExplorer, mGitCommands, mGitClient, mSshTools, mLinks, OpenshiftService, OpenshiftExplorer, OpenshiftCommands) {
 
 mBootstrap.startup().then(function(core) {
+	console.log('orion plugin');
 	var serviceRegistry = core.serviceRegistry;
 	var preferences = core.preferences;
 	

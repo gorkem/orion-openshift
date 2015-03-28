@@ -1,6 +1,5 @@
 {
     "/plugins":{
-        "jboss/plugins/openshiftPlugin.html":true,
         "plugins/authenticationPlugin.html": true,
         "plugins/fileClientPlugin.html":true,
         "plugins/jslintPlugin.html":true,
@@ -23,7 +22,9 @@
         "plugins/gitBlamePlugin.html" :true,
         "cfui/plugins/cFPlugin.html":true,
         "cfui/plugins/cFDeployPlugin.html":true,
-        "cfui/plugins/wizards/genericDeploymentWizardPlugin.html":true
+        "cfui/plugins/wizards/genericDeploymentWizardPlugin.html":true,
+        "jboss/plugins/cordovaSimPlugin.html":true,
+        "jboss/plugins/openshiftPlugin.html":true
     }
 }
 

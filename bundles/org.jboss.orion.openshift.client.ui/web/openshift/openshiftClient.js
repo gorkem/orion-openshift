@@ -46,10 +46,10 @@ eclipse.OpenshiftService = (function(){
            this._authData().then(function(authData){
                console.log(authData);
                 xhr("GET", brokerHost +"/broker/rest/domains",
-                 { headers:{ "Content-Type" : contentType,
+                 { headers:{ "Accept" : contentType,
                            "Authorization" : authData
                           },
-                        responseType: "json"
+                        responseType: "text"
                 }).then(
                 function(result){
                     console.log(result);
@@ -70,10 +70,10 @@ eclipse.OpenshiftService = (function(){
             this._authData().then( function(authData ){
                 var url = brokerHost+ "/broker/rest/domains/"+domain+"/applications?include=cartridges";
                 xhr("GET", url,
-                { headers:{ "Content-Type" : contentType,
+                { headers:{ "Accept" : contentType,
                            "Authorization" : authData
                           },
-                        responseType: "json"
+                        responseType: "text"
                 }).then(function(result){
                         deferred.resolve(result.response.data);
                 },function(error){
@@ -91,12 +91,14 @@ eclipse.OpenshiftService = (function(){
             var url = brokerHost +'/broker/rest/user';
             var authString = "Basic " + btoa(user+":"+password);
             xhr("GET", url,
-                { headers:{ "Content-Type" : contentType,
+                { headers:{"Accept" : contentType,
+                           "Content-Type" : contentType,
                            "Authorization" : authString
                           },
-                        responseType: "json"
+                        responseType: "text"
                 }).then(function(result){
-                        deferred.resolve(result.response.data);
+                    console.log(result);
+                    deferred.resolve(result.response);
                 },function(error){
                     deferred.reject(error);
                 });

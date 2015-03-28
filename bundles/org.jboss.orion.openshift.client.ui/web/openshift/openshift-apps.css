@@ -1,15 +1,15 @@
-@import "../css/layout.css";
+@import "../../css/layout.css";
 
-@import "../css/ide.css";
+@import "../../css/ide.css";
 
-@import "../css/images.css";
+@import "../../css/images.css";
 
-@import "../css/sections.css";
+@import "../../css/sections.css";
 
-@import "../css/theme.css";
+@import "../../css/theme.css";
 
 .openshift-logo {
-   background: url(/openshift/images/openshift_logo_32.png) no-repeat center center;
+   background: url(/jboss/images/openshift_logo_32.png) no-repeat center center;
    vertical-align: middle;
    display: inline-block;
    border: none;

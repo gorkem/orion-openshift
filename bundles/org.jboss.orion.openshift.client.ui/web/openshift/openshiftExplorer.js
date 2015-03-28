@@ -3,7 +3,7 @@
 /* eslint-env  browser, amd */
 
 define(['i18n!orion/nls/messages', 'require', 'orion/webui/littlelib', 'orion/commands', 'orion/section', 'orion/Deferred',
-'openshift/widgets/OpenshiftCredentialsDialog'], 
+'jboss/widgets/OpenshiftCredentialsDialog'], 
 function(messages, require, lib, mCommands, Section, Deferred, OpenshiftCredentialsDialog){
 
 var exports = {};

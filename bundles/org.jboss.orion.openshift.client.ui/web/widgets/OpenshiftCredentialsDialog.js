@@ -35,6 +35,7 @@ OpenshiftCredentialsDialog.prototype.TEMPLATE =
 	    var that = this;
 	    if( this.options.service){
 		  this.options.service.getUser(user, password).then(function(data){
+		      console.log('validate: ' + data);
 		      if(data){
 		          that.options.service.updateServiceCredentials(user,password);
 		          that.hide(false);

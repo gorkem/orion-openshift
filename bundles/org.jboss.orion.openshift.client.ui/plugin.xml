@@ -4,7 +4,7 @@
    <extension
          point="org.eclipse.equinox.http.registry.httpcontexts">
       <httpcontext
-            id="org.jboss.orion.openshift.client.ui.httpcontext">
+            id="org.jboss.orion.client.ui.httpcontext">
          <resource-mapping
                bundle="org.jboss.orion.openshift.client.ui"
                path="/web">
@@ -14,8 +14,8 @@
    <extension
          point="org.eclipse.equinox.http.registry.resources">
       <resource
-            alias="/openshift"
-            httpcontextId="org.jboss.orion.openshift.client.ui.httpcontext">
+            alias="/jboss"
+            httpcontextId="org.jboss.orion.client.ui.httpcontext">
       </resource>
    </extension>
 
