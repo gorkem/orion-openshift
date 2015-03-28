@@ -57,7 +57,8 @@
   <modules>
     <module>releng/org.jboss.orion.repository</module>
     <module>target-platform</module>
-		<module>bundles/org.jboss.orion.openshift.client.ui</module>
+    <module>bundles/org.jboss.orion.openshift.client.ui</module>
+    <module>bundles/org.jboss.orion.cordovasim</module>
     <module>bundles/org.jboss.orion.openshift.server.core</module>
    
 
