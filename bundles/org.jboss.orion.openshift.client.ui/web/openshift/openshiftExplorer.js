@@ -34,6 +34,7 @@ exports.OpenshiftExplorer = (function() {
             
         },
         displayDomains: function(){
+            console.log('display domains');
             var that = this;
             var openshiftService = this.registry.getService('orion.openshift.service');
             this.registry.getService('orion.page.progress').progress(openshiftService.listDomains(),

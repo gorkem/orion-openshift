@@ -47,13 +47,14 @@ eclipse.OpenshiftService = (function(){
                console.log(authData);
                 xhr("GET", brokerHost +"/broker/rest/domains",
                  { headers:{ "Accept" : contentType,
+                            "Content-Type" : contentType,
                            "Authorization" : authData
                           },
                         responseType: "text"
                 }).then(
                 function(result){
-                    console.log(result);
-                    deferred.resolve(result.response.data);
+                    var responseObj = JSON.parse(result.response);
+                    deferred.resolve(responseObj.data);
                 },function(error){
                     console.log(error);
                     deferred.reject(error);
@@ -71,11 +72,13 @@ eclipse.OpenshiftService = (function(){
                 var url = brokerHost+ "/broker/rest/domains/"+domain+"/applications?include=cartridges";
                 xhr("GET", url,
                 { headers:{ "Accept" : contentType,
+                            "Content-Type" : contentType,
                            "Authorization" : authData
                           },
                         responseType: "text"
                 }).then(function(result){
-                        deferred.resolve(result.response.data);
+                    var responseObj = JSON.parse(result.response);
+                    deferred.resolve(responseObj.data);
                 },function(error){
                     deferred.reject(error);
                 });
@@ -97,8 +100,8 @@ eclipse.OpenshiftService = (function(){
                           },
                         responseType: "text"
                 }).then(function(result){
-                    console.log(result);
-                    deferred.resolve(result.response);
+                    var responseObj = JSON.parse(result.response);
+                    deferred.resolve(responseObj.data);
                 },function(error){
                     deferred.reject(error);
                 });
