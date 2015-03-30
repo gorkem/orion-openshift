@@ -19,6 +19,7 @@ import org.eclipse.orion.server.core.OrionConfiguration;
 import org.eclipse.orion.server.core.metastore.ProjectInfo;
 import org.eclipse.orion.server.servlets.OrionServlet;
 import org.eclipse.osgi.util.NLS;
+import org.jboss.orion.cordovasim.CordovaSim;
 
 public class RippleServeServlet extends OrionServlet{
 
@@ -40,13 +41,13 @@ public class RippleServeServlet extends OrionServlet{
 	protected void service(final HttpServletRequest req, final HttpServletResponse resp) throws ServletException, IOException {
 	
 		final String pathInfoString = req.getPathInfo();
-		System.out.println("Path Info: "+pathInfoString);
+		CordovaSim.log("Path Info: "+pathInfoString);
 		final IPath pathInfo = new Path(null, pathInfoString==null? "":pathInfoString);
 		if(pathInfo.segmentCount()>1){
 			String filename = pathInfo.lastSegment();
 			if(filename.equals("cordova.js")){
 				serveCordovaJS(req,resp);
-			}if(filename.equals("cordova_plugins.js")){
+			}else if(filename.equals("cordova_plugins.js")){
 				serveCordovaPluginJS(req,resp);
 			}
 			else{
@@ -59,11 +60,13 @@ public class RippleServeServlet extends OrionServlet{
 	}
 
 	private void serveCordovaPluginJS(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		CordovaSim.log("Serving cordova_plugin.js");
 		resp.sendRedirect("/ripple/assets/cordova/cordova_plugins.js");
 	}
 
 	private void serveCordovaJS(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-		resp.sendRedirect("/ripple/assets/cordova/cordova-3.5.0.js");
+		CordovaSim.log("Serving cordova.js");
+		resp.sendRedirect("/ripple/assets/cordova/cordova.js");
 	}
 
 	private void serveFile(HttpServletRequest req, HttpServletResponse resp, IPath path) throws ServletException, IOException {
@@ -79,6 +82,7 @@ public class RippleServeServlet extends OrionServlet{
 			else{
 				IFileStore fs = getFileStore(path);
 				if(fs == null || !fs.fetchInfo().exists() ){
+					CordovaSim.log("NOT FOUND: "+ fileURI);
 					resp.sendError(HttpServletResponse.SC_NOT_FOUND);
 					return;
 				}
@@ -111,7 +115,7 @@ public class RippleServeServlet extends OrionServlet{
 				return null;
 			return project.getProjectStore().getFileStore(path.removeFirstSegments(2));
 		} catch (CoreException e) {
-			//TODO: log the error
+			CordovaSim.log(e);
 		}
 		return null;
 	}

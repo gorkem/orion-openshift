@@ -24,13 +24,6 @@ import javax.servlet.http.HttpServletResponse;
 public class StaticResponseServlet extends HttpServlet {
 	private static final long serialVersionUID = -7965774938057553057L;
 	
-	private String responseString;
-
-	public StaticResponseServlet(String responseString) {
-		super();
-		this.responseString = responseString;
-	}
-
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		processRequest(req, resp);
 	}
@@ -44,6 +37,6 @@ public class StaticResponseServlet extends HttpServlet {
 		resp.setContentType("text/plain"); //$NON-NLS-1$
 		resp.setStatus(HttpServletResponse.SC_OK);
 		
-		resp.getWriter().write(responseString);
+		resp.getWriter().write("OK");
 	}
 }

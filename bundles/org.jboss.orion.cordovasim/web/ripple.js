@@ -29828,7 +29828,7 @@ function setUserAgent(prev, baton) {
 
     params = "userAgent=" + (userAgent ? escape(userAgent) : "");
 
-    xhr.open("POST", "ripple/user-agent");
+    xhr.open("POST", "/ripple/user-agent");
 
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
