@@ -10,7 +10,6 @@ define(['i18n!git/nls/gitmessages', 'require', 'orion/browserCompatibility', 'or
 				mGitRepositoryExplorer, mGitCommands, mGitClient, mSshTools, mLinks, OpenshiftService, OpenshiftExplorer, OpenshiftCommands) {
 
 mBootstrap.startup().then(function(core) {
-	console.log('orion plugin');
 	var serviceRegistry = core.serviceRegistry;
 	var preferences = core.preferences;
 	

@@ -3,7 +3,7 @@ define(['require', 'orion/xhr', 'orion/Deferred', 'orion/operation'],
 function(require, xhr, Deferred, operation) {
 var eclipse = eclipse || {};
 var openshiftUser = openshiftUser || {};
-var brokerHost = ""; //"https://openshift.redhat.com"; 
+var brokerHost = "";
 
 eclipse.OpenshiftService = (function(){
    var contentType = "application/json; charset=UTF-8";
